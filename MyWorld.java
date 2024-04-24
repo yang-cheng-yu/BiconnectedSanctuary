@@ -87,6 +87,30 @@ public class MyWorld extends World
      */
     public MyWorld()
     {    
-        super(1920, 1080, 1); 
+        super(1920, 1080, 1);
+        prepare();
+    }
+    public void prepare() {
+        buildLevel(LEVEL5);
+    }
+    public void buildLevel(int[][] level) {
+        Actor objectToAdd = null;
+        for (int i = 0; i < level.length; i++) {
+            for (int j = 0; j < level[i].length; j++) {
+                if (level[i][j] == 1) {
+                    objectToAdd = new Ground();
+                    if(level[i][j - 1] == 0) {
+                        addObject(new GroundL(), (j - 1) * 120 + 60, i * 120 + 61);
+                    }
+                    if(level[i][j + 1] == 0) {
+                        addObject(new GroundR(), (j + 1) * 120 + 60, i * 120 + 61);
+                    }
+                }
+                if (objectToAdd != null) {
+                    addObject(objectToAdd, j * 120 + 60, i * 120 + 60);
+                }
+                objectToAdd = null;
+            }
+        }
     }
 }
