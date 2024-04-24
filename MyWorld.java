@@ -56,9 +56,9 @@ public class MyWorld extends World
                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
     public static final int[][] LEVEL3 =    {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
-                                            {0, 0, 0, 5, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0}, 
+                                            {0, 0, 0, 5, 0, 0, 0, 0, 0, 1, 6, 1, 0, 0, 0, 0}, 
                                             {0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0}, 
-                                            {2, 1, 1, 1, 1, 1, 1, 1, 6, 1, 0, 1, 1, 6, 1, 4}, 
+                                            {2, 1, 1, 1, 1, 1, 1, 1, 6, 1, 0, 1, 1, 1, 1, 4}, 
                                             {0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 5, 0, 0, 0, 1, 6, 1, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
@@ -91,6 +91,7 @@ public class MyWorld extends World
         prepare();
     }
     public void prepare() {
+        setPaintOrder(Ground.class, GroundR.class, GroundL.class, Lava.class);
         buildLevel(LEVEL3);
     }
     public void buildLevel(int[][] level) {
@@ -98,16 +99,19 @@ public class MyWorld extends World
         for (int i = 0; i < level.length; i++) {
             for (int j = 0; j < level[i].length; j++) {
                 if (level[i][j] == 1) {
-                    if(level[i][j - 1] == 0) {
+                    if(level[i][j - 1] == 0 || level[i][j - 1] == 6) {
                         addObject(new GroundL(), (j - 1) * 120 + 60, i * 120 + 61);
                     }
-                    if(level[i][j + 1] == 0) {
+                    if(level[i][j + 1] == 0 || level[i][j - 1] == 6) {
                         addObject(new GroundR(), (j + 1) * 120 + 60, i * 120 + 61);
                     }
                 }
                 switch(level[i][j]) {
                     case 1 :
                         objectToAdd = new Ground();
+                        break;
+                    case 5 :
+                        objectToAdd = new Box();
                         break;
                     case 6 :
                         objectToAdd = new Lava();
