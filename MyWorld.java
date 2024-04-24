@@ -11,8 +11,8 @@ public class MyWorld extends World
     /* Object IDs
      * 0 = void
      * 1 = ground
-     * 2 = frame spawn
-     * 3 = candy spawn
+     * 2 = p1 spawn
+     * 3 = p2 spawn
      * 4 = completion
      * 5 = box
      * 6 = lava
@@ -91,14 +91,13 @@ public class MyWorld extends World
         prepare();
     }
     public void prepare() {
-        buildLevel(LEVEL5);
+        buildLevel(LEVEL3);
     }
     public void buildLevel(int[][] level) {
         Actor objectToAdd = null;
         for (int i = 0; i < level.length; i++) {
             for (int j = 0; j < level[i].length; j++) {
                 if (level[i][j] == 1) {
-                    objectToAdd = new Ground();
                     if(level[i][j - 1] == 0) {
                         addObject(new GroundL(), (j - 1) * 120 + 60, i * 120 + 61);
                     }
@@ -106,10 +105,19 @@ public class MyWorld extends World
                         addObject(new GroundR(), (j + 1) * 120 + 60, i * 120 + 61);
                     }
                 }
+                switch(level[i][j]) {
+                    case 1 :
+                        objectToAdd = new Ground();
+                        break;
+                    case 6 :
+                        objectToAdd = new Lava();
+                        break;
+                    default :
+                        objectToAdd = null;
+                }
                 if (objectToAdd != null) {
                     addObject(objectToAdd, j * 120 + 60, i * 120 + 60);
                 }
-                objectToAdd = null;
             }
         }
     }
