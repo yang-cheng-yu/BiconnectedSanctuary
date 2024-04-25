@@ -1,15 +1,15 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class GroundL here.
+ * Write a description of class Tile here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class GroundL extends Decal
+public class Tile extends Actor
 {
     /**
-     * Act - do whatever the GroundL wants to do. This method is called whenever
+     * Act - do whatever the Tile wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()

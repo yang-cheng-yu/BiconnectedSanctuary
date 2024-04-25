@@ -91,24 +91,36 @@ public class MyWorld extends World
         prepare();
     }
     public void prepare() {
-        setPaintOrder(Ground.class, GroundR.class, GroundL.class, Lava.class);
+        setPaintOrder(Player.class, Decal.class, Tile.class);
         buildLevel(LEVEL3);
     }
     public void buildLevel(int[][] level) {
         Actor objectToAdd = null;
+        Actor objectToAdd2 = null;
         for (int i = 0; i < level.length; i++) {
             for (int j = 0; j < level[i].length; j++) {
                 if (level[i][j] == 1) {
-                    if(level[i][j - 1] == 0 || level[i][j - 1] == 6) {
+                    if(level[i][j - 1] == 0) {
                         addObject(new GroundL(), (j - 1) * 120 + 60, i * 120 + 61);
                     }
-                    if(level[i][j + 1] == 0 || level[i][j - 1] == 6) {
+                    if(level[i][j + 1] == 0) {
                         addObject(new GroundR(), (j + 1) * 120 + 60, i * 120 + 61);
                     }
                 }
                 switch(level[i][j]) {
                     case 1 :
                         objectToAdd = new Ground();
+                        break;
+                    case 2 :
+                        objectToAdd = new Ground();
+                        objectToAdd2 = new Player1();
+                        break;
+                    case 3 :
+                        objectToAdd = new Ground();
+                        objectToAdd2 = new Player2();
+                        break;
+                    case 4 :
+                        objectToAdd = new Completion();
                         break;
                     case 5 :
                         objectToAdd = new Box();
@@ -121,6 +133,9 @@ public class MyWorld extends World
                 }
                 if (objectToAdd != null) {
                     addObject(objectToAdd, j * 120 + 60, i * 120 + 60);
+                }
+                if (objectToAdd2 != null) {
+                    addObject(objectToAdd2, j * 120 + 60, i * 120 + 60);
                 }
             }
         }

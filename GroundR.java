@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class GroundR extends Actor
+public class GroundR extends Decal
 {
     /**
      * Act - do whatever the GroundR wants to do. This method is called whenever

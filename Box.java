@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Box extends Actor
+public class Box extends Tile
 {
     /**
      * Act - do whatever the Box wants to do. This method is called whenever
