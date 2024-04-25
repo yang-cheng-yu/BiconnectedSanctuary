@@ -96,28 +96,20 @@ public class MyWorld extends World
     }
     public void buildLevel(int[][] level) {
         Actor objectToAdd = null;
-        Actor objectToAdd2 = null;
+        Player p1 = null;
+        Player p2 = null;
+        // Tile
         for (int i = 0; i < level.length; i++) {
             for (int j = 0; j < level[i].length; j++) {
-                if (level[i][j] == 1) {
-                    if(level[i][j - 1] == 0) {
-                        addObject(new GroundL(), (j - 1) * 120 + 60, i * 120 + 61);
-                    }
-                    if(level[i][j + 1] == 0) {
-                        addObject(new GroundR(), (j + 1) * 120 + 60, i * 120 + 61);
-                    }
-                }
                 switch(level[i][j]) {
                     case 1 :
                         objectToAdd = new Ground();
                         break;
                     case 2 :
                         objectToAdd = new Ground();
-                        objectToAdd2 = new Player1();
                         break;
                     case 3 :
                         objectToAdd = new Ground();
-                        objectToAdd2 = new Player2();
                         break;
                     case 4 :
                         objectToAdd = new Completion();
@@ -134,8 +126,37 @@ public class MyWorld extends World
                 if (objectToAdd != null) {
                     addObject(objectToAdd, j * 120 + 60, i * 120 + 60);
                 }
-                if (objectToAdd2 != null) {
-                    addObject(objectToAdd2, j * 120 + 60, i * 120 + 60);
+            }
+        }
+        // Decal
+        for (int i = 0; i < level.length; i++) {
+            for (int j = 0; j < level[i].length; j++) {
+                if (level[i][j] == 1) {
+                    if(level[i][j - 1] == 0 || level[i][j - 1] == 6) {
+                        addObject(new GroundL(), (j - 1) * 120 + 60, i * 120 + 61);
+                    }
+                    if(level[i][j + 1] == 0 || level[i][j + 1] == 6) {
+                        addObject(new GroundR(), (j + 1) * 120 + 60, i * 120 + 61);
+                    }
+                }
+            }
+        }
+        // Player
+        outer:
+        for (int i = 0; i < level.length; i++) {
+            for (int j = 0; j < level[i].length; j++) {
+                switch(level[i][j]) {
+                    case 2 :
+                        p1 = new Player1();
+                        addObject(p1, j * 120 + 60, i * 120 + 61);
+                        break;
+                    case 3 :
+                        p2 = new Player2();
+                        addObject(p2, j * 120 + 60, i * 120 + 61);
+                        break;
+                }
+                if (p1 != null && p2 != null) {
+                    break outer;
                 }
             }
         }
