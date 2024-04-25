@@ -8,6 +8,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MyWorld extends World
 {
+    public Player p1 = null;
+    public Player p2 = null;
+    
     /* Object IDs
      * 0 = void
      * 1 = ground
@@ -91,13 +94,11 @@ public class MyWorld extends World
         prepare();
     }
     public void prepare() {
-        setPaintOrder(Player.class, Decal.class, Tile.class);
         buildLevel(LEVEL3);
+        Player.active = p1;
     }
     public void buildLevel(int[][] level) {
         Actor objectToAdd = null;
-        Player p1 = null;
-        Player p2 = null;
         // Tile
         for (int i = 0; i < level.length; i++) {
             for (int j = 0; j < level[i].length; j++) {

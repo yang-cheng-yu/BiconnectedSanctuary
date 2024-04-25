@@ -13,7 +13,6 @@ public class Player1 extends Player
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act() {
-    }
-    public void launch() {
+        super.act();
     }
 }
