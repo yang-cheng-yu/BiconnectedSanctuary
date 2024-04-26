@@ -39,7 +39,9 @@ public class MyWorld extends World
      */
     
     //Levels
-    public static final int[][] LEVEL1 =    {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+    private static int[][] level;
+    private static int levelId;
+    private static final int[][] LEVEL1 =    {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
@@ -48,7 +50,7 @@ public class MyWorld extends World
                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
-    public static final int[][] LEVEL2 =    {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+    private static final int[][] LEVEL2 =    {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
@@ -57,7 +59,7 @@ public class MyWorld extends World
                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
-    public static final int[][] LEVEL3 =    {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+    private static final int[][] LEVEL3 =    {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 5, 0, 0, 0, 0, 0, 1, 6, 1, 0, 0, 0, 0}, 
                                             {0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0}, 
@@ -66,7 +68,7 @@ public class MyWorld extends World
                                             {0, 0, 0, 5, 0, 0, 0, 1, 6, 1, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
-    public static final int[][] LEVEL4 =    {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+    private static final int[][] LEVEL4 =    {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0}, 
                                             {0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0}, 
                                             {0, 0, 8, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 8, 0, 0}, 
@@ -75,7 +77,7 @@ public class MyWorld extends World
                                             {0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0}, 
                                             {0, 0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0, 0}, 
                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
-    public static final int[][] LEVEL5 =    {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
+    private static final int[][] LEVEL5 =    {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 1, 0, 0, 5, 1, 1, 0, 0, 0, 0, 0, 0, 0}, 
@@ -84,7 +86,8 @@ public class MyWorld extends World
                                             {0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
-    /**
+    
+                                            /**
      * Constructor for objects of class MyWorld.
      * 
      */
@@ -93,10 +96,18 @@ public class MyWorld extends World
         super(1920, 1080, 1);
         prepare();
     }
+    
     public void prepare() {
-        buildLevel(LEVEL3);
+        levelId = 3;
+        level = toLevelArray(levelId);
+        buildLevel(level);
         Player.active = p1;
     }
+    
+    /**
+     * Builds inputted level in the world
+     * @param level level array
+     */
     public void buildLevel(int[][] level) {
         Actor objectToAdd = null;
         // Tile
@@ -164,6 +175,46 @@ public class MyWorld extends World
                     break outer;
                 }
             }
+        }
+    }
+    
+    /**
+     * Creates a copy of level array for simulation
+     * @param level level array
+     * @return copy of level array
+     */
+    public static int[][] copyLevel(int[][] level) {
+        int[][] out = new int[level.length][];
+
+        for (int i = 0; i < level.length; i++) {
+            out[i] = new int[level[i].length];
+            
+            for (int j = 0; j < level[i].length; j++) {
+                out[i][j] = level[i][j];
+            }
+        }
+        return out;
+    }
+    
+    /**
+     * Converts a level id to corresponding level array
+     * @param levelId level id
+     * @return level array
+     */
+    public static int[][] toLevelArray(int levelId) {
+        switch (levelId) {
+            case 1:
+                return LEVEL1;
+            case 2:
+                return LEVEL2;
+            case 3:
+                return LEVEL3;
+            case 4:
+                return LEVEL4;
+            case 5:
+                return LEVEL5;
+            default:
+                return null;
         }
     }
 }
