@@ -14,6 +14,6 @@ public class Player2 extends Player
      */
     public void act()
     {
-        // Add your action code here.
+        super.act();
     }
 }

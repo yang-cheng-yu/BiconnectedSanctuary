@@ -15,12 +15,23 @@ public class Player extends Actor
     * 2 = left
     * 3 = right
     */
-    private int dir = 0;
+    private int dir;
     private int x;
     private int y;
     
+    /* Holding
+     * 0 = nothing
+     * 1 = box
+     * 2 = p1
+     * 3 = p2
+     */
+    private int holding;
+    
     private long lastMoveTime = 0;
     private static final long MOVE_DELAY = 350;
+    
+    private static long currentTime;
+    private static int[][] level;
     
     private GreenfootSound bumpSound = new GreenfootSound("bumpintowall.wav");
     /**
@@ -28,52 +39,76 @@ public class Player extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act() {
-        move();
+        processInputs();
+        if (!Greenfoot.isKeyDown("W") && !Greenfoot.isKeyDown("S") && !Greenfoot.isKeyDown("A") && !Greenfoot.isKeyDown("D")) {
+            lastMoveTime = 0;
+        }
     }
     
-    public void move()
-    {
-        long currentTime = System.currentTimeMillis();
-        int[][] level = MyWorld.getLevel();
+    public void processInputs() {
+        currentTime = System.currentTimeMillis();
+        level = MyWorld.getLevel();
+        
+        Box.pInteract = false;
         if (currentTime - lastMoveTime >= MOVE_DELAY) {
             if (Greenfoot.isKeyDown("W")) {
                 if (active.y != 0 && isLegalTile('w', level)) {
                     active.setLocation(getX(), getY() - 120);
                     active.y--;
+                    dir = 1;
                     lastMoveTime = currentTime;
                     return;
                 } else {
+                    dir = 1;
                     bumpSound.play();
+                    return;
                 }
             }
             if (Greenfoot.isKeyDown("S")){
                 if (active.y != 8 && isLegalTile('s', level)) {
                     active.setLocation(getX(), getY() + 120);
                     active.y++;
+                    dir = 0;
                     lastMoveTime = currentTime;
                     return;
                 } else {
+                    dir = 0;
                     bumpSound.play();
+                    return;
                 }
             }
             if (Greenfoot.isKeyDown("A")) {
                 if (active.x != 0 && isLegalTile('a', level)) {
                     active.setLocation(getX() - 120, getY());
                     active.x--;
+                    dir = 2;
                     lastMoveTime = currentTime;
                     return;
                 } else {
+                    dir = 2;
                     bumpSound.play();
+                    return;
                 }
             }
             if (Greenfoot.isKeyDown("D")) {
                 if (active.x != 15 && isLegalTile('d', level)) {
                     active.setLocation(getX() + 120, getY());
                     active.x++;
+                    dir = 3;
                     lastMoveTime = currentTime;
                     return;
                 } else {
+                    dir = 3;
                     bumpSound.play();
+                    return;
+                }
+            }
+            if (Greenfoot.isKeyDown("space")) {
+                switch (holding) {
+                    case 0:
+                        Box.pInteract = true;
+                        lastMoveTime = currentTime;
+                        return;
                 }
             }
         }
@@ -105,11 +140,23 @@ public class Player extends Actor
     public int getGridY() {
         return y;
     }
+    public int getDir() {
+        return dir;
+    }
+    public int getHolding() {
+        return holding;
+    }
     // Setters
     public void setX(int value) {
         x = value;
     }
     public void setY(int value) {
         y = value;
+    }
+    public void setDir(int value) {
+        dir = value;
+    }
+    public void setHolding(int value) {
+        holding = value;
     }
 }

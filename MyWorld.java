@@ -101,6 +101,7 @@ public class MyWorld extends World
         levelId = 3;
         level = toLevelArray(levelId);
         buildLevel(level);
+        initPlayers(level);
     }
     
     /**
@@ -126,7 +127,7 @@ public class MyWorld extends World
                         objectToAdd = new Completion();
                         break;
                     case 5 :
-                        objectToAdd = new Box();
+                        objectToAdd = new Box(j, i);
                         break;
                     case 6 :
                         objectToAdd = new Lava();
@@ -152,6 +153,9 @@ public class MyWorld extends World
                 }
             }
         }
+    }
+    
+    public void initPlayers(int[][] level) {
         // Player
         outer:
         for (int i = 0; i < level.length; i++) {
@@ -178,6 +182,22 @@ public class MyWorld extends World
         Player.active = p1;
     }
     
+    public void redrawPlayers() {
+        if (p1 != null) {
+            int p1X = p1.getX();
+            int p1Y = p1.getY();
+            
+            removeObject(p1);
+            addObject(p1, p1X, p1Y);
+        }
+        if (p2 != null) {
+            int p2X = p2.getX();
+            int p2Y = p2.getY();
+            
+            removeObject(p2);
+            addObject(p2, p2X, p2Y);
+        }
+    }
     /**
      * Creates a copy of level array for simulation
      * @param level level array
@@ -204,15 +224,15 @@ public class MyWorld extends World
     public static int[][] toLevelArray(int levelId) {
         switch (levelId) {
             case 1:
-                return LEVEL1;
+                return copyLevel(LEVEL1);
             case 2:
-                return LEVEL2;
+                return copyLevel(LEVEL2);
             case 3:
-                return LEVEL3;
+                return copyLevel(LEVEL3);
             case 4:
-                return LEVEL4;
+                return copyLevel(LEVEL4);
             case 5:
-                return LEVEL5;
+                return copyLevel(LEVEL5);
             default:
                 return null;
         }
