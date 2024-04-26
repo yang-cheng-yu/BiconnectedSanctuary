@@ -101,7 +101,6 @@ public class MyWorld extends World
         levelId = 3;
         level = toLevelArray(levelId);
         buildLevel(level);
-        Player.active = p1;
     }
     
     /**
@@ -161,14 +160,14 @@ public class MyWorld extends World
                     case 2 :
                         p1 = new Player1();
                         addObject(p1, j * 120 + 60, i * 120 + 61);
-                        p1.setX(i);
-                        p1.setY(j);
+                        p1.setX(j);
+                        p1.setY(i);
                         break;
                     case 3 :
                         p2 = new Player2();
                         addObject(p2, j * 120 + 60, i * 120 + 61);
-                        p2.setX(i);
-                        p2.setY(j);
+                        p2.setX(j);
+                        p2.setY(i);
                         break;
                 }
                 if (p1 != null && p2 != null) {
@@ -176,6 +175,7 @@ public class MyWorld extends World
                 }
             }
         }
+        Player.active = p1;
     }
     
     /**
@@ -216,5 +216,8 @@ public class MyWorld extends World
             default:
                 return null;
         }
+    }
+    public static int[][] getLevel() {
+        return level;
     }
 }

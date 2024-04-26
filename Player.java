@@ -30,38 +30,82 @@ public class Player extends Actor
     public void act() {
         move();
     }
+    
     public void move()
     {
         long currentTime = System.currentTimeMillis();
+        int[][] level = MyWorld.getLevel();
         if (currentTime - lastMoveTime >= MOVE_DELAY) {
             if (Greenfoot.isKeyDown("W")) {
-                active.setLocation(getX(), getY() - 120);
-                lastMoveTime = currentTime;
-                return;
+                if (active.y != 0 && isLegalTile('w', level)) {
+                    active.setLocation(getX(), getY() - 120);
+                    active.y--;
+                    lastMoveTime = currentTime;
+                    return;
+                } else {
+                    bumpSound.play();
+                }
             }
             if (Greenfoot.isKeyDown("S")){
-                active.setLocation(getX(), getY() + 120);
-                lastMoveTime = currentTime;
-                return;
+                if (active.y != 8 && isLegalTile('s', level)) {
+                    active.setLocation(getX(), getY() + 120);
+                    active.y++;
+                    lastMoveTime = currentTime;
+                    return;
+                } else {
+                    bumpSound.play();
+                }
             }
             if (Greenfoot.isKeyDown("A")) {
-                active.setLocation(getX() - 120, getY());
-                lastMoveTime = currentTime;
-                return;
+                if (active.x != 0 && isLegalTile('a', level)) {
+                    active.setLocation(getX() - 120, getY());
+                    active.x--;
+                    lastMoveTime = currentTime;
+                    return;
+                } else {
+                    bumpSound.play();
+                }
             }
             if (Greenfoot.isKeyDown("D")) {
-                active.setLocation(getX() + 120, getY());
-                lastMoveTime = currentTime;
-                return;
+                if (active.x != 15 && isLegalTile('d', level)) {
+                    active.setLocation(getX() + 120, getY());
+                    active.x++;
+                    lastMoveTime = currentTime;
+                    return;
+                } else {
+                    bumpSound.play();
+                }
             }
         }
     }
+    
+    private static boolean isLegalTile(char key, int[][] level) {
+        switch (key) {
+            case 'w':
+                return isLegalTile(level[active.y - 1][active.x]);
+            case 's':
+                return isLegalTile(level[active.y + 1][active.x]);
+            case 'a':
+                return isLegalTile(level[active.y][active.x - 1]);
+            case 'd':
+                return isLegalTile(level[active.y][active.x + 1]);
+            default:
+                return false;
+        }
+    }
+
+    private static boolean isLegalTile(int tile) {
+        return tile == 1 || tile == 2 || tile == 3 || tile == 4 || tile == 7;
+    }
+
+    // Getters
     public int getGridX() {
         return x;
     }
     public int getGridY() {
         return y;
     }
+    // Setters
     public void setX(int value) {
         x = value;
     }
