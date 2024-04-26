@@ -8,8 +8,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class MyWorld extends World
 {
-    public Player p1 = null;
-    public Player p2 = null;
+    private Player p1 = null;
+    private Player p2 = null;
     
     /* Object IDs
      * 0 = void
@@ -150,10 +150,14 @@ public class MyWorld extends World
                     case 2 :
                         p1 = new Player1();
                         addObject(p1, j * 120 + 60, i * 120 + 61);
+                        p1.setX(i);
+                        p1.setY(j);
                         break;
                     case 3 :
                         p2 = new Player2();
                         addObject(p2, j * 120 + 60, i * 120 + 61);
+                        p2.setX(i);
+                        p2.setY(j);
                         break;
                 }
                 if (p1 != null && p2 != null) {
