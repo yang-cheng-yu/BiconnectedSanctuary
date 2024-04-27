@@ -98,7 +98,7 @@ public class MyWorld extends World
     }
     
     public void prepare() {
-        levelId = 3;
+        levelId = 1;
         level = toLevelArray(levelId);
         buildLevel(level);
         initPlayers(level);
@@ -143,7 +143,7 @@ public class MyWorld extends World
         // Decal
         for (int i = 0; i < level.length; i++) {
             for (int j = 0; j < level[i].length; j++) {
-                if (level[i][j] == 1) {
+                if (level[i][j] == 1 || level[i][j] == 5) {
                     if(level[i][j - 1] == 0 || level[i][j - 1] == 6) {
                         addObject(new GroundL(), (j - 1) * 120 + 60, i * 120 + 61);
                     }
@@ -163,13 +163,13 @@ public class MyWorld extends World
                 switch(level[i][j]) {
                     case 2 :
                         p1 = new Player1();
-                        addObject(p1, j * 120 + 60, i * 120 + 61);
+                        addObject(p1, j * 120 + 60, i * 120 + 61 - Player.Y_OFFSET);
                         p1.setX(j);
                         p1.setY(i);
                         break;
                     case 3 :
                         p2 = new Player2();
-                        addObject(p2, j * 120 + 60, i * 120 + 61);
+                        addObject(p2, j * 120 + 60, i * 120 + 61 - Player.Y_OFFSET);
                         p2.setX(j);
                         p2.setY(i);
                         break;

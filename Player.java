@@ -29,6 +29,7 @@ public class Player extends Actor
     
     private long lastMoveTime = 0;
     private static final long MOVE_DELAY = 350;
+    public static final int Y_OFFSET = 40;
     
     private static long currentTime;
     private static int[][] level;
@@ -54,6 +55,7 @@ public class Player extends Actor
             if (Greenfoot.isKeyDown("W")) {
                 if (active.y != 0 && isLegalTile('w', level)) {
                     active.setLocation(getX(), getY() - 120);
+                    
                     active.y--;
                     dir = 1;
                     lastMoveTime = currentTime;
@@ -67,6 +69,7 @@ public class Player extends Actor
             if (Greenfoot.isKeyDown("S")){
                 if (active.y != 8 && isLegalTile('s', level)) {
                     active.setLocation(getX(), getY() + 120);
+                    
                     active.y++;
                     dir = 0;
                     lastMoveTime = currentTime;
@@ -80,6 +83,7 @@ public class Player extends Actor
             if (Greenfoot.isKeyDown("A")) {
                 if (active.x != 0 && isLegalTile('a', level)) {
                     active.setLocation(getX() - 120, getY());
+                    
                     active.x--;
                     dir = 2;
                     lastMoveTime = currentTime;
@@ -93,6 +97,7 @@ public class Player extends Actor
             if (Greenfoot.isKeyDown("D")) {
                 if (active.x != 15 && isLegalTile('d', level)) {
                     active.setLocation(getX() + 120, getY());
+                    
                     active.x++;
                     dir = 3;
                     lastMoveTime = currentTime;
@@ -106,9 +111,11 @@ public class Player extends Actor
             if (Greenfoot.isKeyDown("space")) {
                 switch (holding) {
                     case 0:
-                        Box.pInteract = true;
-                        lastMoveTime = currentTime;
-                        return;
+                        if (level[active.y][active.x] != 23) {
+                            Box.pInteract = true;
+                            lastMoveTime = currentTime;
+                            return;
+                        }
                 }
             }
         }
@@ -130,7 +137,7 @@ public class Player extends Actor
     }
 
     private static boolean isLegalTile(int tile) {
-        return tile == 1 || tile == 2 || tile == 3 || tile == 4 || tile == 7;
+        return tile == 1 || tile == 2 || tile == 3 || tile == 4 || tile == 7 || tile == 23 && active.holding == 0;
     }
 
     // Getters
