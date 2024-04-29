@@ -25,14 +25,14 @@ public class Player extends Actor
      * 2 = p1
      * 3 = p2
      */
-    private int holding;
+    private int holding = 0;
     
     private long lastMoveTime = 0;
     private static final long MOVE_DELAY = 350;
     public static final int Y_OFFSET = 40;
     
     private static long currentTime;
-    private static int[][] level;
+    private static int[][] level = MyWorld.level;
     
     private GreenfootSound bumpSound = new GreenfootSound("bumpintowall.wav");
     /**
@@ -40,7 +40,7 @@ public class Player extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act() {
-        processInputs();
+        active.processInputs();
         if (!Greenfoot.isKeyDown("W") && !Greenfoot.isKeyDown("S") && !Greenfoot.isKeyDown("A") && !Greenfoot.isKeyDown("D")) {
             lastMoveTime = 0;
         }
@@ -48,16 +48,18 @@ public class Player extends Actor
     
     public void processInputs() {
         currentTime = System.currentTimeMillis();
-        level = MyWorld.getLevel();
+        level = MyWorld.level;
         
         Box.pInteract = false;
         if (currentTime - lastMoveTime >= MOVE_DELAY) {
             if (Greenfoot.isKeyDown("W")) {
-                if (active.y != 0 && isLegalTile('w', level)) {
-                    active.setLocation(getX(), getY() - 120);
+                if (y != 0 && active.isLegalTile('w', level)) {
+                    setLocation(getX(), getY() - 120);
+                    active.debug();
                     
-                    active.y--;
+                    y--;
                     dir = 1;
+                    
                     lastMoveTime = currentTime;
                     return;
                 } else {
@@ -67,11 +69,12 @@ public class Player extends Actor
                 }
             }
             if (Greenfoot.isKeyDown("S")){
-                if (active.y != 8 && isLegalTile('s', level)) {
-                    active.setLocation(getX(), getY() + 120);
+                if (y != 8 && active.isLegalTile('s', level)) {
+                    setLocation(getX(), getY() + 120);
                     
-                    active.y++;
+                    y++;
                     dir = 0;
+                    
                     lastMoveTime = currentTime;
                     return;
                 } else {
@@ -81,11 +84,12 @@ public class Player extends Actor
                 }
             }
             if (Greenfoot.isKeyDown("A")) {
-                if (active.x != 0 && isLegalTile('a', level)) {
-                    active.setLocation(getX() - 120, getY());
+                if (x != 0 && active.isLegalTile('a', level)) {
+                    setLocation(getX() - 120, getY());
                     
-                    active.x--;
+                    x--;
                     dir = 2;
+                    
                     lastMoveTime = currentTime;
                     return;
                 } else {
@@ -95,11 +99,12 @@ public class Player extends Actor
                 }
             }
             if (Greenfoot.isKeyDown("D")) {
-                if (active.x != 15 && isLegalTile('d', level)) {
-                    active.setLocation(getX() + 120, getY());
+                if (x != 15 && active.isLegalTile('d', level)) {
+                    setLocation(getX() + 120, getY());
                     
-                    active.x++;
+                    x++;
                     dir = 3;
+                    
                     lastMoveTime = currentTime;
                     return;
                 } else {
@@ -111,26 +116,32 @@ public class Player extends Actor
             if (Greenfoot.isKeyDown("space")) {
                 switch (holding) {
                     case 0:
-                        if (level[active.y][active.x] != 23) {
+                        if (level[y][x] != 23) {
                             Box.pInteract = true;
                             lastMoveTime = currentTime;
-                            return;
                         }
+                        return;
+                    case 1:
+                        if (level[y][x] != 23) {
+                            active.putDown();
+                            lastMoveTime = currentTime;
+                        }
+                        return;
                 }
             }
         }
     }
     
-    private static boolean isLegalTile(char key, int[][] level) {
+    private boolean isLegalTile(char key, int[][] level) {
         switch (key) {
             case 'w':
-                return isLegalTile(level[active.y - 1][active.x]);
+                return isLegalTile(level[y - 1][x]);
             case 's':
-                return isLegalTile(level[active.y + 1][active.x]);
+                return isLegalTile(level[y + 1][x]);
             case 'a':
-                return isLegalTile(level[active.y][active.x - 1]);
+                return isLegalTile(level[y][x - 1]);
             case 'd':
-                return isLegalTile(level[active.y][active.x + 1]);
+                return isLegalTile(level[y][x + 1]);
             default:
                 return false;
         }
@@ -138,6 +149,54 @@ public class Player extends Actor
 
     private static boolean isLegalTile(int tile) {
         return tile == 1 || tile == 2 || tile == 3 || tile == 4 || tile == 7 || tile == 23 && active.holding == 0;
+    }
+    
+    private void putDown() {
+        switch (dir) {
+            case 0 :
+                if (level[y + 1][x] == 1) {
+                    level[y + 1][x] = 5;
+                }
+                if (level[y + 1][x] == 6) {
+                    level[y + 1][x] = 23;
+                }
+                holding = 0;
+                break;
+            case 1 :
+                if (level[y - 1][x] == 1) {
+                    level[y - 1][x] = 5;
+                }
+                if (level[y - 1][x] == 6) {
+                    level[y - 1][x] = 23;
+                }
+                holding = 0;
+                break;
+            case 2 :
+                if (level[y][x - 1] == 1) {
+                    level[y][x - 1] = 5;
+                }
+                if (level[y][x - 1] == 6) {
+                    level[y][x - 1] = 23;
+                }
+                holding = 0;
+                break;
+            case 3 :
+                if (level[y][x + 1] == 1) {
+                    level[y][x + 1] = 5;
+                }
+                if (level[y][x + 1] == 6) {
+                    level[y][x + 1] = 23;
+                }
+                holding = 0;
+                break;
+        }
+        MyWorld world = (MyWorld) getWorld();
+        world.buildLevel(level);
+        world.redrawPlayers();
+    }
+    
+    private void debug() {
+        System.out.printf("tileatpos (%d)\ntileup (%d)\ntiledown (%d)\ntileleft (%d)\ntileright (%d)\n", level[y][x], level[y - 1][x], level[y + 1][x], level[y][x - 1], level[y][x + 1]);
     }
 
     // Getters

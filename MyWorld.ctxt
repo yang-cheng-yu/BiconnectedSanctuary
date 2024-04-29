@@ -19,6 +19,4 @@ comment6.text=\r\n\ Creates\ a\ copy\ of\ level\ array\ for\ simulation\r\n\ @pa
 comment7.params=levelId
 comment7.target=int[][]\ toLevelArray(int)
 comment7.text=\r\n\ Converts\ a\ level\ id\ to\ corresponding\ level\ array\r\n\ @param\ levelId\ level\ id\r\n\ @return\ level\ array\r\n
-comment8.params=
-comment8.target=int[][]\ getLevel()
-numComments=9
+numComments=8

@@ -54,7 +54,7 @@ public class Box extends Tile
     
     public void pickup() {
         MyWorld world = (MyWorld) getWorld();
-        int[][] level = MyWorld.getLevel();
+        int[][] level = MyWorld.level;
                         
         Player.active.setHolding(1);
         

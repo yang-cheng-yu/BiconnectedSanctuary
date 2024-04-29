@@ -39,7 +39,7 @@ public class MyWorld extends World
      */
     
     //Levels
-    private static int[][] level;
+    public static int[][] level;
     private static int levelId;
     private static final int[][] LEVEL1 =    {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
                                             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, 
@@ -98,7 +98,7 @@ public class MyWorld extends World
     }
     
     public void prepare() {
-        levelId = 1;
+        levelId = 2;
         level = toLevelArray(levelId);
         buildLevel(level);
         initPlayers(level);
@@ -236,8 +236,5 @@ public class MyWorld extends World
             default:
                 return null;
         }
-    }
-    public static int[][] getLevel() {
-        return level;
     }
 }
