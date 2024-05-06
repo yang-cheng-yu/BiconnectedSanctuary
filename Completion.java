@@ -8,8 +8,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Completion extends Tile
 {
-    public static int numTiles = 0;
-    public static int numActive = 0;
+    public static int numTiles;
+    public static int numActive;
     
     private int x;
     private int y;
@@ -28,7 +28,6 @@ public class Completion extends Tile
     public void act() {
         checkForPlayer();
         if (numTiles == numActive) {
-            numActive = 0;
             MyWorld world = (MyWorld) getWorld();
             world.nextLevel();
         }

@@ -111,6 +111,8 @@ public class MyWorld extends World
      */
     public void buildLevel(int[][] level) {
         Actor objectToAdd = null;
+        Completion.numTiles = 0;
+        Completion.numActive = 0;
         // Tile
         for (int i = 0; i < level.length; i++) {
             for (int j = 0; j < level[i].length; j++) {
@@ -162,10 +164,6 @@ public class MyWorld extends World
     
     private boolean isGroundSideTile(int tile) {
         return tile == 0 || tile == 6 || tile == 23;
-    }
-    
-    public void buildLevel(int levelId) {
-        buildLevel(toLevelArray(levelId));
     }
     
     public void initPlayers(int[][] level) {
