@@ -28,11 +28,15 @@ public class Player extends Actor
     private int holding = 0;
     
     private long lastMoveTime = 0;
+    private boolean spacePressed;
     private static final long MOVE_DELAY = 350;
     public static final int Y_OFFSET = 40;
     
     private static long currentTime;
     private static int[][] level = MyWorld.level;
+    
+    public GreenfootImage holdBox;
+    public GreenfootImage faceDown;
     
     private GreenfootSound bumpSound = new GreenfootSound("bumpintowall.wav");
     /**
@@ -55,7 +59,6 @@ public class Player extends Actor
             if (Greenfoot.isKeyDown("W")) {
                 if (y != 0 && active.isLegalTile('w', level)) {
                     setLocation(getX(), getY() - 120);
-                    active.debug();
                     
                     y--;
                     dir = 1;
@@ -114,6 +117,10 @@ public class Player extends Actor
                 }
             }
             if (Greenfoot.isKeyDown("space")) {
+                spacePressed = true;
+            }
+            if (!Greenfoot.isKeyDown("space") && spacePressed) {
+                spacePressed = false;
                 switch (holding) {
                     case 0:
                         if (level[y][x] != 23) {
@@ -123,7 +130,10 @@ public class Player extends Actor
                         return;
                     case 1:
                         if (level[y][x] != 23) {
-                            active.putDown();
+                            putDown();
+                            if (holding == 0) {
+                                setImage(faceDown);
+                            }
                             lastMoveTime = currentTime;
                         }
                         return;
@@ -156,38 +166,42 @@ public class Player extends Actor
             case 0 :
                 if (level[y + 1][x] == 1) {
                     level[y + 1][x] = 5;
+                    holding = 0;
                 }
                 if (level[y + 1][x] == 6) {
                     level[y + 1][x] = 23;
+                    holding = 0;
                 }
-                holding = 0;
                 break;
             case 1 :
                 if (level[y - 1][x] == 1) {
                     level[y - 1][x] = 5;
+                    holding = 0;
                 }
                 if (level[y - 1][x] == 6) {
                     level[y - 1][x] = 23;
+                    holding = 0;
                 }
-                holding = 0;
                 break;
             case 2 :
                 if (level[y][x - 1] == 1) {
                     level[y][x - 1] = 5;
+                    holding = 0;
                 }
                 if (level[y][x - 1] == 6) {
                     level[y][x - 1] = 23;
+                    holding = 0;
                 }
-                holding = 0;
                 break;
             case 3 :
                 if (level[y][x + 1] == 1) {
                     level[y][x + 1] = 5;
+                    holding = 0;
                 }
                 if (level[y][x + 1] == 6) {
                     level[y][x + 1] = 23;
+                    holding = 0;
                 }
-                holding = 0;
                 break;
         }
         MyWorld world = (MyWorld) getWorld();

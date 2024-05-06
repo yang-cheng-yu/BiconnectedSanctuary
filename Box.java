@@ -57,6 +57,7 @@ public class Box extends Tile
         int[][] level = MyWorld.level;
                         
         Player.active.setHolding(1);
+        Player.active.setImage(Player.active.holdBox);
         
         level[y][x] = 1;
         world.buildLevel(level);

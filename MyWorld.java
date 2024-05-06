@@ -1,4 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.List;
 
 /**
  * Write a description of class MyWorld here.
@@ -98,7 +99,7 @@ public class MyWorld extends World
     }
     
     public void prepare() {
-        levelId = 2;
+        levelId = 1;
         level = toLevelArray(levelId);
         buildLevel(level);
         initPlayers(level);
@@ -124,13 +125,17 @@ public class MyWorld extends World
                         objectToAdd = new Ground();
                         break;
                     case 4 :
-                        objectToAdd = new Completion();
+                        objectToAdd = new Completion(j, i);
+                        Completion.numTiles++;
                         break;
                     case 5 :
                         objectToAdd = new Box(j, i);
                         break;
                     case 6 :
                         objectToAdd = new Lava();
+                        break;
+                    case 23 :
+                        objectToAdd = new LavaBox();
                         break;
                     default :
                         objectToAdd = null;
@@ -144,15 +149,23 @@ public class MyWorld extends World
         for (int i = 0; i < level.length; i++) {
             for (int j = 0; j < level[i].length; j++) {
                 if (level[i][j] == 1 || level[i][j] == 5) {
-                    if(level[i][j - 1] == 0 || level[i][j - 1] == 6) {
+                    if(isGroundSideTile(level[i][j - 1])) {
                         addObject(new GroundL(), (j - 1) * 120 + 60, i * 120 + 61);
                     }
-                    if(level[i][j + 1] == 0 || level[i][j + 1] == 6) {
+                    if(isGroundSideTile(level[i][j + 1])) {
                         addObject(new GroundR(), (j + 1) * 120 + 60, i * 120 + 61);
                     }
                 }
             }
         }
+    }
+    
+    private boolean isGroundSideTile(int tile) {
+        return tile == 0 || tile == 6 || tile == 23;
+    }
+    
+    public void buildLevel(int levelId) {
+        buildLevel(toLevelArray(levelId));
     }
     
     public void initPlayers(int[][] level) {
@@ -236,5 +249,16 @@ public class MyWorld extends World
             default:
                 return null;
         }
+    }
+    
+    public void nextLevel() {
+        List objects = getObjects(Actor.class);
+        if (objects != null) {
+            removeObjects(objects);
+        }
+        
+        level = toLevelArray(++levelId);
+        buildLevel(level);
+        initPlayers(level);
     }
 }
