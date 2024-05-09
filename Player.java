@@ -175,7 +175,7 @@ public class Player extends Actor
     }
 
     private static boolean isLegalTile(int tile) {
-        return tile == 1 || tile == 2 || tile == 3 || tile == 4 || tile == 7 || tile == 23 && active.holding == 0;
+        return tile == 1 || tile == 2 || tile == 3 || tile == 4 || tile == 7 || tile == 9 || tile == 23 && active.holding == 0;
     }
     
     private void putDown() {

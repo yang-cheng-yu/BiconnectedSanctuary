@@ -99,7 +99,7 @@ public class MyWorld extends World
     }
     
     public void prepare() {
-        levelId = 1;
+        levelId = 4;
         level = toLevelArray(levelId);
         buildLevel(level);
         initPlayers(level);
@@ -135,6 +135,12 @@ public class MyWorld extends World
                         break;
                     case 6 :
                         objectToAdd = new Lava();
+                        break;
+                    case 7 :
+                        objectToAdd = new Toggle(j, i);
+                        break;
+                    case 9 :
+                        objectToAdd = new On();
                         break;
                     case 23 :
                         objectToAdd = new LavaBox();
@@ -209,6 +215,15 @@ public class MyWorld extends World
             addObject(p2, p2X, p2Y);
         }
     }
+    
+    public void redrawLevel() {
+        List objects = getObjects(Tile.class);
+        if (objects != null) {
+            removeObjects(objects);
+        }
+        buildLevel(level);
+    }
+    
     /**
      * Creates a copy of level array for simulation
      * @param level level array
@@ -266,5 +281,19 @@ public class MyWorld extends World
     
     public void resetLevel() {
         loadLevel(levelId);
+    }
+    
+    public void toggle() {
+        for (int i = 0; i < level.length; i++) {
+            for (int j = 0; j < level[i].length; j++) {
+                if (level[i][j] == 8) {
+                    level[i][j] = 9;
+                } else if (level[i][j] == 9) {
+                    level[i][j] = 8;
+                }
+            }
+        }
+        redrawLevel();
+        redrawPlayers();
     }
 }
