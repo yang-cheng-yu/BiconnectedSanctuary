@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Player2 extends Player
 {
     public Player2() {
-        faceDown = getImage();
+        front = getImage();
         holdBox = new GreenfootImage("FrameBox.png");
     }
     /**

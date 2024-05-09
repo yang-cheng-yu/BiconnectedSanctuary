@@ -9,8 +9,8 @@ import java.util.List;
  */
 public class MyWorld extends World
 {
-    private Player p1 = null;
-    private Player p2 = null;
+    public Player p1 = null;
+    public Player p2 = null;
     
     /* Object IDs
      * 0 = void

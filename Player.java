@@ -36,7 +36,7 @@ public class Player extends Actor
     private static int[][] level = MyWorld.level;
     
     public GreenfootImage holdBox;
-    public GreenfootImage faceDown;
+    public GreenfootImage front;
     
     private GreenfootSound bumpSound = new GreenfootSound("bumpintowall.wav");
     /**
@@ -132,7 +132,20 @@ public class Player extends Actor
                         if (level[y][x] != 23) {
                             putDown();
                             if (holding == 0) {
-                                setImage(faceDown);
+                                setImage(front);
+                            }
+                            lastMoveTime = currentTime;
+                        }
+                        return;
+                }
+            }
+            if (Greenfoot.isKeyDown("Q")) {
+                switch (holding) {
+                    case 1:
+                        if (level[y][x] != 23) {
+                            throwBox();
+                            if (holding == 0) {
+                                setImage(front);
                             }
                             lastMoveTime = currentTime;
                         }
@@ -205,6 +218,138 @@ public class Player extends Actor
                 break;
         }
         MyWorld world = (MyWorld) getWorld();
+        world.buildLevel(level);
+        world.redrawPlayers();
+    }
+    
+    private void throwBox() {
+        MyWorld world = (MyWorld) getWorld();
+        switch (dir) {
+            case 0 :
+                if (this == world.p1) {
+                    outer:
+                    for (int i = 2; i > 0; i--) {
+                        switch (level[y + i][x]) {
+                            case 1:
+                                level[y + i][x] = 5;
+                                holding = 0;
+                                break outer;
+                            case 6:
+                                level[y + i][x] = 23;
+                                holding = 0;
+                                break outer;
+                        }
+                    }
+                } else {
+                    outer:
+                    for (int i = 3; i > 0; i--) {
+                        switch (level[y + i][x]) {
+                            case 1:
+                                level[y + i][x] = 5;
+                                holding = 0;
+                                break outer;
+                            case 6:
+                                level[y + i][x] = 23;
+                                holding = 0;
+                                break outer;
+                        }
+                    }
+                }
+                break;
+            case 1 :
+                if (this == world.p1) {
+                    outer:
+                    for (int i = 2; i > 0; i--) {
+                        switch (level[y - i][x]) {
+                            case 1:
+                                level[y - i][x] = 5;
+                                holding = 0;
+                                break outer;
+                            case 6:
+                                level[y - i][x] = 23;
+                                holding = 0;
+                                break outer;
+                        }
+                    }
+                } else {
+                    outer:
+                    for (int i = 3; i > 0; i--) {
+                        switch (level[y - i][x]) {
+                            case 1:
+                                level[y - i][x] = 5;
+                                holding = 0;
+                                break outer;
+                            case 6:
+                                level[y - i][x] = 23;
+                                holding = 0;
+                                break outer;
+                        }
+                    }
+                }
+                break;
+            case 2 :
+                if (this == world.p1) {
+                    outer:
+                    for (int i = 2; i > 0; i--) {
+                        switch (level[y][x - i]) {
+                            case 1:
+                                level[y][x - i] = 5;
+                                holding = 0;
+                                break outer;
+                            case 6:
+                                level[y][x - i] = 23;
+                                holding = 0;
+                                break outer;
+                        }
+                    }
+                } else {
+                    outer:
+                    for (int i = 3; i > 0; i--) {
+                        switch (level[y][x - i]) {
+                            case 1:
+                                level[y][x - i] = 5;
+                                holding = 0;
+                                break outer;
+                            case 6:
+                                level[y][x - i] = 23;
+                                holding = 0;
+                                break outer;
+                        }
+                    }
+                }
+                break;
+            case 3 :
+                if (this == world.p1) {
+                    outer:
+                    for (int i = 2; i > 0; i--) {
+                        switch (level[y][x + i]) {
+                            case 1:
+                                level[y][x + i] = 5;
+                                holding = 0;
+                                break outer;
+                            case 6:
+                                level[y][x + i] = 23;
+                                holding = 0;
+                                break outer;
+                        }
+                    }
+                } else {
+                    outer:
+                    for (int i = 3; i > 0; i--) {
+                        switch (level[y][x + i]) {
+                            case 1:
+                                level[y][x + i] = 5;
+                                holding = 0;
+                                break outer;
+                            case 6:
+                                level[y][x + i] = 23;
+                                holding = 0;
+                                break outer;
+                        }
+                    }
+                }
+                break;
+        }
         world.buildLevel(level);
         world.redrawPlayers();
     }
