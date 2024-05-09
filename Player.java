@@ -53,6 +53,7 @@ public class Player extends Actor
     public void processInputs() {
         currentTime = System.currentTimeMillis();
         level = MyWorld.level;
+        MyWorld world = (MyWorld) getWorld();
         
         Box.pInteract = false;
         if (currentTime - lastMoveTime >= MOVE_DELAY) {
@@ -151,6 +152,9 @@ public class Player extends Actor
                         }
                         return;
                 }
+            }
+            if (Greenfoot.isKeyDown("R")) {
+                world.resetLevel();
             }
         }
     }

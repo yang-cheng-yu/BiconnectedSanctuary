@@ -249,14 +249,22 @@ public class MyWorld extends World
         }
     }
     
-    public void nextLevel() {
+    private void loadLevel(int levelId) {
         List objects = getObjects(Actor.class);
         if (objects != null) {
             removeObjects(objects);
         }
         
-        level = toLevelArray(++levelId);
+        level = toLevelArray(levelId);
         buildLevel(level);
         initPlayers(level);
+    }
+    
+    public void nextLevel() {
+        loadLevel(++levelId);
+    }
+    
+    public void resetLevel() {
+        loadLevel(levelId);
     }
 }
