@@ -12,6 +12,7 @@ public class Toggle extends Tile
     private int y;
     
     private static boolean trigger;
+    public static boolean active;
     
     public Toggle(int x, int y) {
         this.x = x;

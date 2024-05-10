@@ -39,6 +39,8 @@ public class Player extends Actor
     public GreenfootImage front;
     
     private GreenfootSound bumpSound = new GreenfootSound("bumpintowall.wav");
+    private GreenfootSound placeSound = new GreenfootSound("place.wav");
+    
     /**
      * Act - do whatever the Player wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -189,6 +191,7 @@ public class Player extends Actor
                     level[y + 1][x] = 23;
                     holding = 0;
                 }
+                placeSound.play();
                 break;
             case 1 :
                 if (level[y - 1][x] == 1) {
@@ -199,6 +202,7 @@ public class Player extends Actor
                     level[y - 1][x] = 23;
                     holding = 0;
                 }
+                placeSound.play();
                 break;
             case 2 :
                 if (level[y][x - 1] == 1) {
@@ -209,6 +213,7 @@ public class Player extends Actor
                     level[y][x - 1] = 23;
                     holding = 0;
                 }
+                placeSound.play();
                 break;
             case 3 :
                 if (level[y][x + 1] == 1) {
@@ -219,6 +224,7 @@ public class Player extends Actor
                     level[y][x + 1] = 23;
                     holding = 0;
                 }
+                placeSound.play();
                 break;
         }
         MyWorld world = (MyWorld) getWorld();

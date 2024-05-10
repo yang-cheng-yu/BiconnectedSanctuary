@@ -13,6 +13,8 @@ public class Box extends Tile
     
     public static boolean pInteract;
     
+    private GreenfootSound pickSound = new GreenfootSound("pickup.wav");
+    
     public Box(int x, int y) {
         this.x = x;
         this.y = y;
@@ -58,6 +60,8 @@ public class Box extends Tile
                         
         Player.active.setHolding(1);
         Player.active.setImage(Player.active.holdBox);
+        
+        pickSound.play();
         
         level[y][x] = 1;
         world.buildLevel(level);

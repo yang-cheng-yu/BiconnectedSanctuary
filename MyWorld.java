@@ -12,6 +12,9 @@ public class MyWorld extends World
     public Player p1 = null;
     public Player p2 = null;
     
+    private GreenfootSound toggleOnSound = new GreenfootSound("toggle.wav");
+    private GreenfootSound toggleOffSound = new GreenfootSound("toggleoff.wav");
+    
     /* Object IDs
      * 0 = void
      * 1 = ground
@@ -99,7 +102,7 @@ public class MyWorld extends World
     }
     
     public void prepare() {
-        levelId = 4;
+        levelId = 1;
         level = toLevelArray(levelId);
         buildLevel(level);
         initPlayers(level);
@@ -284,6 +287,12 @@ public class MyWorld extends World
     }
     
     public void toggle() {
+        if (Toggle.active) {
+            toggleOffSound.play();
+        } else {
+            toggleOnSound.play();
+        }
+        Toggle.active = !Toggle.active;
         for (int i = 0; i < level.length; i++) {
             for (int j = 0; j < level[i].length; j++) {
                 if (level[i][j] == 8) {

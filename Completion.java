@@ -16,6 +16,8 @@ public class Completion extends Tile
     
     private boolean active;
     
+    private GreenfootSound winSound = new GreenfootSound("enter1.wav");
+    
     public Completion(int x, int y) {
         this.x = x;
         this.y = y;
@@ -28,6 +30,7 @@ public class Completion extends Tile
     public void act() {
         checkForPlayer();
         if (numTiles == numActive) {
+            winSound.play();
             MyWorld world = (MyWorld) getWorld();
             world.nextLevel();
         }
