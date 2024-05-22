@@ -39,7 +39,7 @@ public class Player extends Actor
     public GreenfootImage front;
     
     private GreenfootSound bumpSound = new GreenfootSound("bumpintowall.wav");
-    private GreenfootSound placeSound = new GreenfootSound("place.wav");
+    private GreenfootSound placeSound = new GreenfootSound("boxSound1.wav");
     
     /**
      * Act - do whatever the Player wants to do. This method is called whenever
@@ -147,6 +147,7 @@ public class Player extends Actor
                     case 1:
                         if (level[y][x] != 23) {
                             throwBox();
+                            placeSound.play();
                             if (holding == 0) {
                                 setImage(front);
                             }

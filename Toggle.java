@@ -14,6 +14,8 @@ public class Toggle extends Tile
     private static boolean trigger;
     public static boolean active;
     
+    
+    
     public Toggle(int x, int y) {
         this.x = x;
         this.y = y;
@@ -34,10 +36,13 @@ public class Toggle extends Tile
         
         if (activeX == x && activeY == y && trigger) {
             world.toggle();
+            Greenfoot.playSound("bridgeOnOff.wav");
             trigger = false;
+            
         }
         if (activeX != x || activeY != y) {
             trigger = true;
+            
         }
     }
 }
