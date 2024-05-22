@@ -13,7 +13,7 @@ public class Box extends Tile
     
     public static boolean pInteract;
     
-    private GreenfootSound pickSound = new GreenfootSound("pickup.wav");
+    private GreenfootSound pickSound = new GreenfootSound("boxSound1.wav");
     
     public Box(int x, int y) {
         this.x = x;
