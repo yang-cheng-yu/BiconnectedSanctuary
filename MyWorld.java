@@ -38,8 +38,8 @@ public class MyWorld extends World
      * 19 = warp 4.2
      * 20 = warp 5.1
      * 21 = warp 5.2
-     * 22 = lava w/box
-     * 23 = toggle w/box
+     * 22 = toggle w/box
+     * 23 = lava w/box
      */
     
     //Levels
@@ -144,6 +144,9 @@ public class MyWorld extends World
                         break;
                     case 9 :
                         objectToAdd = new On();
+                        break;
+                    case 22 :
+                        objectToAdd = new ToggleBox(j, i);
                         break;
                     case 23 :
                         objectToAdd = new LavaBox();
@@ -287,12 +290,11 @@ public class MyWorld extends World
     }
     
     public void toggle() {
-        if (Toggle.active) {
+        if (Toggler.active <= 0) {
             toggleOffSound.play();
         } else {
             toggleOnSound.play();
         }
-        Toggle.active = !Toggle.active;
         for (int i = 0; i < level.length; i++) {
             for (int j = 0; j < level[i].length; j++) {
                 if (level[i][j] == 8) {

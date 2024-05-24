@@ -6,13 +6,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Toggle extends Tile
+public class Toggle extends Toggler
 {
     private int x;
     private int y;
     
-    private static boolean trigger;
-    public static boolean active;
+    private boolean on;
     
     public Toggle(int x, int y) {
         this.x = x;
@@ -32,12 +31,12 @@ public class Toggle extends Tile
         int activeY = Player.active.getGridY();
         MyWorld world = (MyWorld) getWorld();
         
-        if (activeX == x && activeY == y && trigger) {
-            world.toggle();
-            trigger = false;
-        }
-        if (activeX != x || activeY != y) {
-            trigger = true;
+        if (activeX == x && activeY == y && !on) {
+            on = true;
+            active++;
+        } else if ((activeX != x || activeY != y) && on) {
+            on = false;
+            active--;
         }
     }
 }

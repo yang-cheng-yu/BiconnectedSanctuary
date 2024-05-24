@@ -58,6 +58,7 @@ public class Player extends Actor
         MyWorld world = (MyWorld) getWorld();
         
         Box.pInteract = false;
+        ToggleBox.pInteract = false;
         if (currentTime - lastMoveTime >= MOVE_DELAY) {
             if (Greenfoot.isKeyDown("W")) {
                 if (y != 0 && active.isLegalTile('w', level)) {
@@ -128,6 +129,7 @@ public class Player extends Actor
                     case 0:
                         if (level[y][x] != 23) {
                             Box.pInteract = true;
+                            ToggleBox.pInteract = true;
                             lastMoveTime = currentTime;
                         }
                         return;
@@ -186,45 +188,49 @@ public class Player extends Actor
                 if (level[y + 1][x] == 1) {
                     level[y + 1][x] = 5;
                     holding = 0;
+                    placeSound.play();
                 }
                 if (level[y + 1][x] == 6) {
                     level[y + 1][x] = 23;
                     holding = 0;
+                    placeSound.play();
                 }
-                placeSound.play();
                 break;
             case 1 :
                 if (level[y - 1][x] == 1) {
                     level[y - 1][x] = 5;
                     holding = 0;
+                    placeSound.play();
                 }
                 if (level[y - 1][x] == 6) {
                     level[y - 1][x] = 23;
                     holding = 0;
+                    placeSound.play();
                 }
-                placeSound.play();
                 break;
             case 2 :
                 if (level[y][x - 1] == 1) {
                     level[y][x - 1] = 5;
                     holding = 0;
+                    placeSound.play();
                 }
                 if (level[y][x - 1] == 6) {
                     level[y][x - 1] = 23;
                     holding = 0;
+                    placeSound.play();
                 }
-                placeSound.play();
                 break;
             case 3 :
                 if (level[y][x + 1] == 1) {
                     level[y][x + 1] = 5;
                     holding = 0;
+                    placeSound.play();
                 }
                 if (level[y][x + 1] == 6) {
                     level[y][x + 1] = 23;
                     holding = 0;
+                    placeSound.play();
                 }
-                placeSound.play();
                 break;
         }
         MyWorld world = (MyWorld) getWorld();
